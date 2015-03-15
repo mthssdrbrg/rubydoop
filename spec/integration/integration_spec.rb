@@ -36,7 +36,7 @@ describe 'Packaging and running a project' do
 
   context 'Packaging the project as a JAR file that' do
     let :jar do
-      Java::JavaUtilJar::JarFile.new(Java::JavaIo::File.new(File.expand_path('build/test_project.jar')))
+      Java::JavaUtilJar::JarFile.new(Java::JavaIo::File.new(File.expand_path("build/test_project-#{Time.now.strftime('%Y%m%d')}.jar")))
     end
 
     let :jar_entries do
@@ -104,7 +104,7 @@ describe 'Packaging and running a project' do
 
   context 'Running the project' do
     before :all do
-      isolated_run(test_project_dir, "#{HADOOP_HOME}/bin/hadoop jar build/test_project.jar -conf conf/hadoop-local.xml test_project data/input data/output 2>&1 | tee data/log")
+      isolated_run(test_project_dir, "#{HADOOP_HOME}/bin/hadoop jar build/test_project-#{Time.now.strftime('%Y%m%d')}.jar -conf conf/hadoop-local.xml test_project data/input data/output 2>&1 | tee data/log")
     end
 
     let :log do

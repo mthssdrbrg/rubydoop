@@ -21,7 +21,8 @@ task :build do
 end
 
 task :package => :build do
-  job_package = Rubydoop::Package.new(lib_jars: Dir['ext/dist/*.jar'])
+  package_name = 'test_project-%s' % Time.now.strftime('%Y%m%d')
+  job_package = Rubydoop::Package.new(project_name: package_name, lib_jars: Dir['ext/dist/*.jar'])
   job_package.create!
 end
 
